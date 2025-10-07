@@ -1,0 +1,591 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Md Parvej Hossen | Professional Full Stack Java Developer</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ========================================================== */
+        /* COLOR PALETTE & VARIABLES */
+        /* ========================================================== */
+        :root {
+            /* Light Mode */
+            --primary-color: #ff3d6a; /* Coral/Pink Accent */
+            --secondary-color: #ff8c42; /* Orange Accent */
+            --bg-gradient-light: linear-gradient(135deg, #f3f4f6, #ffffff, #f0f8ff);
+            --bg-section-alt: #f7f8f9; 
+            --bg-component: #ffffff; 
+            --bg-navbar: rgba(255, 255, 255, 0.95);
+            --text-color: #1a1a1a; 
+            --text-muted: #666; 
+            --border-color: #e0e0e0;
+            --shadow-color: rgba(0, 0, 0, 0.08); 
+            --icon-color: rgba(255, 61, 106, 0.08); /* Hero Icon Color */
+            --timeline-line-color: #cccccc;
+            --skill-badge-bg: #e9ecef; /* Light gray for badges in light mode */
+            --skill-badge-text: var(--text-color);
+        }
+
+        body.dark-mode {
+            /* Dark Mode */
+            --primary-color: #ff6b8f;
+            --secondary-color: #ffac6d;
+            --bg-gradient-dark: linear-gradient(-45deg, #101827, #151f30, #202a40);
+            --bg-section-alt: #1a2530;
+            --bg-component: #253340;
+            --bg-navbar: rgba(21, 33, 50, 0.95);
+            --text-color: #f0f0f0; 
+            --text-muted: #a0a0a0; 
+            --border-color: #354a5c;
+            --shadow-color: rgba(0, 0, 0, 0.3); 
+            --icon-color: rgba(255, 107, 143, 0.06);
+            --timeline-line-color: #354a5c;
+            --skill-badge-bg: #343a40; /* Darker gray for badges in dark mode */
+            --skill-badge-text: #f0f0f0;
+        }
+
+        /* ========================================================== */
+        /* GLOBAL STYLING */
+        /* ========================================================== */
+        body {
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-color);
+            background: var(--bg-gradient-light);
+            background-size: 400% 400%;
+            animation: moveGradient 15s ease infinite;
+            scroll-behavior: smooth;
+        }
+
+        body.dark-mode { background: var(--bg-gradient-dark); }
+        h1, h2, h3, h4, h5, h6 { font-family: 'Montserrat', sans-serif; color: var(--text-color); }
+        .text-gradient {
+            background: -webkit-linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .section { padding: 120px 0; overflow-x: hidden; }
+        .section-title { font-weight: 700; margin-bottom: 70px; position: relative; }
+        .section-title::after {
+            content: ''; position: absolute; left: 50%; transform: translateX(-50%);
+            bottom: -20px; width: 100px; height: 5px; border-radius: 3px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+        }
+        
+        /* Cards */
+        .card, .project-card, .testimonial-card, .resource-card {
+            background-color: var(--bg-component); border: none; border-radius: 12px;
+            box-shadow: 0 10px 30px var(--shadow-color); transition: all 0.4s ease;
+        }
+        .card:hover, .project-card:hover, .testimonial-card:hover, .resource-card:hover {
+            transform: translateY(-5px); box-shadow: 0 15px 35px var(--shadow-color);
+        }
+
+        /* Navbar & Mode Toggle */
+        .navbar { background-color: var(--bg-navbar); backdrop-filter: blur(10px); box-shadow: 0 4px 15px var(--shadow-color); }
+        .mode-toggle { cursor: pointer; font-size: 1.3rem; margin-right: 15px; color: var(--text-color); transition: color 0.3s; }
+        .mode-toggle:hover { color: var(--primary-color); }
+
+        /* Skill Card Icon */
+        .skill-icon { color: var(--primary-color); font-size: 2.5rem; }
+
+        /* FIX: Skill Badge Styling (Changed to use variables for visibility) */
+        .skill-badge { 
+            background-color: var(--skill-badge-bg) !important; 
+            color: var(--skill-badge-text) !important;
+            padding: 8px 15px; margin: 4px; font-weight: 500; border-radius: 6px;
+        }
+
+
+        /* ========================================================== */
+        /* HERO SECTION STYLES (#home) */
+        /* ========================================================== */
+        #home {
+            position: relative;
+            height: 100vh;
+            display: flex;
+            align-items: center; 
+            justify-content: center; 
+            z-index: 1;
+            overflow: hidden;
+        }
+        #home .container {
+            position: relative; z-index: 10; max-width: 900px;
+            text-shadow: 0 4px 10px var(--shadow-color); 
+        }
+
+        /* Moving Icon Grid Background */
+        .icon-grid {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; overflow: hidden; z-index: -1; 
+        }
+
+        .icon-grid i {
+            position: absolute; display: block; bottom: -100px; font-size: 4rem;
+            color: var(--icon-color); animation: animate 25s linear infinite;
+        }
+
+        /* Icon positioning and timing for randomness (omitted for brevity) */
+        .icon-grid i:nth-child(1) { left: 25%; animation-delay: 0s; animation-duration: 15s; }
+        .icon-grid i:nth-child(2) { left: 10%; animation-delay: 2s; animation-duration: 12s; }
+        .icon-grid i:nth-child(3) { left: 70%; animation-delay: 4s; animation-duration: 18s; }
+        .icon-grid i:nth-child(4) { left: 40%; animation-delay: 0s; animation-duration: 10s; }
+        .icon-grid i:nth-child(5) { left: 60%; animation-delay: 6s; animation-duration: 22s; }
+        .icon-grid i:nth-child(6) { left: 30%; animation-delay: 8s; animation-duration: 14s; }
+        .icon-grid i:nth-child(7) { left: 80%; animation-delay: 10s; animation-duration: 16s; }
+        .icon-grid i:nth-child(8) { left: 50%; animation-delay: 12s; animation-duration: 20s; }
+        
+        /* ========================================================== */
+        /* TIMELINE STYLES (EXPERIENCE) */
+        /* ========================================================== */
+        .timeline { position: relative; max-width: 1000px; margin: 0 auto; padding: 0 10px; }
+        /* Vertical Line with Moving Light Effect */
+        .timeline::before {
+            content: ''; position: absolute; top: 0; bottom: 0; left: 50%; width: 4px; margin-left: -2px;
+            background-color: var(--timeline-line-color); z-index: 1;
+            background-image: repeating-linear-gradient(
+                to bottom, var(--timeline-line-color) 0%, var(--timeline-line-color) 90%,
+                var(--primary-color) 90%, var(--secondary-color) 100%
+            );
+            background-size: 100% 100%; animation: line-pulse 8s linear infinite;
+        }
+        .timeline-item { padding: 10px 0; position: relative; width: 50%; z-index: 2; }
+        .timeline-item:nth-child(odd) { left: 0; padding-right: 30px; text-align: right; }
+        .timeline-item:nth-child(even) { left: 50%; padding-left: 30px; text-align: left; }
+        /* Timeline Dot with Pulse */
+        .timeline-item::after {
+            content: ''; position: absolute; width: 18px; height: 18px; border-radius: 50%;
+            background-color: var(--bg-component); border: 4px solid var(--primary-color); top: 25px; z-index: 3;
+            box-shadow: 0 0 0 0 rgba(255, 61, 106, 0.7); animation: dot-pulse 2s infinite;
+        }
+        .timeline-item:nth-child(odd)::after { right: -9px; }
+        .timeline-item:nth-child(even)::after { left: -9px; }
+        .timeline-content { background: var(--bg-section-alt); border-radius: 8px; padding: 20px; transition: all 0.3s; box-shadow: 0 4px 15px var(--shadow-color); }
+        .timeline-date { color: var(--primary-color); font-weight: 600; }
+        
+        /* Resource Card */
+        .resource-card { border-left: 5px solid var(--secondary-color); }
+        .resource-icon { color: var(--primary-color); font-size: 1.5rem; }
+        .profile-img { border: 8px solid var(--border-color); box-shadow: 0 0 40px var(--shadow-color); }
+
+        /* ========================================================== */
+        /* KEYFRAMES */
+        /* ========================================================== */
+        @keyframes moveGradient { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        @keyframes animate { 0% { transform: translateY(0) rotate(0deg); opacity: 1; border-radius: 0; } 100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; border-radius: 50%; } }
+        @keyframes line-pulse { 0% { background-position-y: 100%; } 100% { background-position-y: 0%; } }
+        @keyframes dot-pulse { 0% { box-shadow: 0 0 0 0 rgba(255, 61, 106, 0.7); } 70% { box-shadow: 0 0 0 10px rgba(255, 61, 106, 0); } 100% { box-shadow: 0 0 0 0 rgba(255, 61, 106, 0); } }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .section { padding: 80px 0; }
+            #home { height: 70vh; }
+            .timeline::before { left: 10px; }
+            .timeline-item { width: 100%; padding-left: 50px; padding-right: 10px; }
+            .timeline-item:nth-child(odd), .timeline-item:nth-child(even) { left: 0; padding-right: 10px; text-align: left; }
+            .timeline-item:nth-child(odd)::after, .timeline-item:nth-child(even)::after { left: 1px; right: auto; }
+        }
+    </style>
+</head>
+
+<body data-bs-spy="scroll" data-bs-target="#navbar" data-bs-offset="80">
+
+    <nav id="navbar" class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand fs-4" href="#home">Parvej Hossen</a>
+            
+            <div class="d-flex order-lg-2 align-items-center">
+                <i class="fas fa-moon mode-toggle theme-icon" aria-label="Toggle Dark/Light Mode"></i>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+            </div>
+
+            <div class="collapse navbar-collapse order-lg-1" id="navbarNav">
+                <ul class="navbar-nav ms-auto text-center">
+                    <li class="nav-item"><a class="nav-link active" href="#home">Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#experience">Experience</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#skills">Skills</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#education">Education</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#projects">Projects</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#certifications">Certifications</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#resources">Resources</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+                    <li class="nav-item d-lg-none">
+                        <a class="nav-link toggle-menu-item" href="#" aria-label="Toggle Dark/Light Mode">
+                            <i class="fas fa-moon me-2 theme-icon-menu"></i> Toggle Mode
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="text-center">
+        <div class="icon-grid">
+            <i class="fab fa-java"></i><i class="fab fa-react"></i><i class="fas fa-database"></i><i class="fab fa-aws"></i>
+            <i class="fab fa-docker"></i><i class="fab fa-github"></i><i class="fab fa-linux"></i><i class="fas fa-terminal"></i>
+        </div>
+        <div class="container">
+            <p class="lead mb-3 fs-4 fw-bold">Hello, World! I'm</p>
+            <h1 class="display-1 text-gradient">Md Parvej Hossen</h1>
+            <p class="lead mt-3 fs-3 fw-light">A **Full Stack Java Developer** passionate about building the future of the web.</p>
+        </div>
+    </section>
+    
+    <section id="about" class="section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 text-center"><h2 class="section-title">About Me</h2></div>
+            </div>
+            <div class="row align-items-center">
+                <div class="col-lg-4 text-center mb-5 mb-lg-0">
+                    <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="img-fluid profile-img rounded-circle" alt="Md Parvej Hossen">
+                </div>
+                <div class="col-lg-8">
+                    <p class="fs-5 fw-light">I am a results-driven **Full Stack Java Developer** with 4+ years of experience creating efficient, scalable, and user-centric web applications. My journey is fueled by a passion for solving complex problems with clean, elegant code.</p>
+                    <p class="fw-light">I specialize in **Java, Spring Boot, and Microservices** for the backend, coupled with **React** for building intuitive user interfaces. I thrive in Agile environments, committed to continuous learning and delivering high-quality solutions that exceed expectations.</p>
+                    <div class="mt-4 d-flex flex-wrap gap-3">
+                        <a href="https://linkedin.com/in/md-parvej-hossen" target="_blank" class="btn btn-outline-dark"><i class="fab fa-linkedin me-2"></i> View Profile</a>
+                        <a href="#" class="btn btn-primary" style="background-color: var(--primary-color); border-color: var(--primary-color);">Download Resume <i class="fas fa-download ms-2"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="section" style="background-color: var(--bg-section-alt);">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 text-center"><h2 class="section-title">Work Experience</h2></div>
+            </div>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h5 class="fw-bold">Full Stack Java Developer</h5>
+                        <p class="timeline-date"><i class="fas fa-calendar-alt me-2"></i> Jan 2023 - Present</p>
+                        <p class="text-muted">Tech Solutions Inc. - Dhaka, BD</p>
+                        <ul class="text-muted small">
+                            <li>Developed and maintained high-performance **RESTful APIs** using **Spring Boot**.</li>
+                            <li>Led the migration of monolithic applications to a scalable **Microservices** architecture.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h5 class="fw-bold">Junior Java Developer</h5>
+                        <p class="timeline-date"><i class="fas fa-calendar-alt me-2"></i> June 2021 - Dec 2022</p>
+                        <p class="text-muted">Innovate BD - Dhaka, BD</p>
+                        <ul class="text-muted small">
+                            <li>Contributed to the development of an e-commerce platform's core services.</li>
+                            <li>Wrote extensive unit and integration tests using **JUnit** and **Mockito**.</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h5 class="fw-bold">Software Development Intern</h5>
+                        <p class="timeline-date"><i class="fas fa-calendar-alt me-2"></i> Jan 2021 - May 2021</p>
+                        <p class="text-muted">Future Code Labs - Dhaka, BD</p>
+                        <ul class="text-muted small">
+                            <li>Learned and applied basic Java development principles and Agile methodologies.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 text-center"><h2 class="section-title">Core Skillset</h2></div>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6">
+                    <div class="card h-100 text-center p-4">
+                        <i class="fab fa-java skill-icon mb-3"></i><h5 class="card-title fw-bold">Backend & Core</h5>
+                        <div class="card-body p-0 pt-3">
+                            <span class="badge skill-badge">Java 17+</span><span class="badge skill-badge">Spring Boot</span><span class="badge skill-badge">Microservices</span><span class="badge skill-badge">Kafka</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card h-100 text-center p-4">
+                        <i class="fab fa-react skill-icon mb-3"></i><h5 class="card-title fw-bold">Frontend & UI</h5>
+                        <div class="card-body p-0 pt-3">
+                            <span class="badge skill-badge">React.js</span><span class="badge skill-badge">JavaScript (ES6)</span><span class="badge skill-badge">HTML5/CSS3</span><span class="badge skill-badge">Tailwind CSS</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card h-100 text-center p-4">
+                        <i class="fas fa-database skill-icon mb-3"></i><h5 class="card-title fw-bold">Data & Persistence</h5>
+                        <div class="card-body p-0 pt-3">
+                            <span class="badge skill-badge">PostgreSQL</span><span class="badge skill-badge">MySQL</span><span class="badge skill-badge">MongoDB</span><span class="badge skill-badge">Hibernate/JPA</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6">
+                    <div class="card h-100 text-center p-4">
+                        <i class="fas fa-cloud skill-icon mb-3"></i><h5 class="card-title fw-bold">DevOps & Tools</h5>
+                        <div class="card-body p-0 pt-3">
+                            <span class="badge skill-badge">Git/GitHub</span><span class="badge skill-badge">Docker</span><span class="badge skill-badge">Kubernetes</span><span class="badge skill-badge">AWS</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="education" class="section" style="background-color: var(--bg-section-alt);">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 text-center"><h2 class="section-title">Education & Credentials</h2></div>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-5 col-md-6">
+                    <div class="card h-100 p-4 text-center">
+                        <i class="fas fa-graduation-cap skill-icon mb-3"></i>
+                        <h5 class="fw-bold">B.Sc. in Computer Science & Engineering</h5>
+                        <p class="text-muted mb-1">BRAC University, Dhaka</p>
+                        <p class="text-gradient fw-bold">2017 - 2021</p>
+                    </div>
+                </div>
+                <div class="col-lg-5 col-md-6">
+                    <div class="card h-100 p-4 text-center">
+                        <i class="fas fa-certificate skill-icon mb-3"></i>
+                        <h5 class="fw-bold">AWS Certified Cloud Practitioner</h5>
+                        <p class="text-muted mb-1">Amazon Web Services</p>
+                        <p class="text-gradient fw-bold">Issued: 2023</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 text-center"><h2 class="section-title">Featured Projects</h2></div>
+            </div>
+            <div class="row g-5">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card project-card h-100">
+                        <img src="https://images.unsplash.com/photo-1586953208448-b95a79798f07?q=80&w=1923&auto=format&fit=crop" class="card-img-top" alt="E-Commerce Project">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title fw-bold">Microservice E-Shop</h5>
+                            <p class="card-text text-muted small flex-grow-1">A distributed e-commerce platform utilizing Spring Cloud, Eureka, and React.</p>
+                            <p class="text-muted small mt-2">**Tech:** Java, Spring Cloud, React, Docker</p>
+                            <div class="mt-3">
+                                <a href="#" target="_blank" class="btn btn-outline-info me-2"><i class="fab fa-github"></i> Code</a>
+                                <a href="#" target="_blank" class="btn btn-outline-info"><i class="fas fa-globe"></i> Live Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card project-card h-100">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070&auto=format&fit=crop" class="card-img-top" alt="Project Management Tool">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title fw-bold">Agile Task Manager</h5>
+                            <p class="card-text text-muted small flex-grow-1">A real-time collaborative task board built with Spring WebFlux (Reactive) and WebSocket.</p>
+                            <p class="text-muted small mt-2">**Tech:** Spring WebFlux, PostgreSQL, WebSocket, React</p>
+                            <div class="mt-3">
+                                <a href="#" target="_blank" class="btn btn-outline-info me-2"><i class="fab fa-github"></i> Code</a>
+                                <a href="#" target="_blank" class="btn btn-outline-info"><i class="fas fa-globe"></i> Demo</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card project-card h-100">
+                        <img src="https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=2070&auto=format&fit=crop" class="card-img-top" alt="Blogging API Project">
+                        <div class="card-body d-flex flex-column">
+                            <h5 class="card-title fw-bold">JWT Secured API Gateway</h5>
+                            <p class="card-text text-muted small flex-grow-1">A secure content management backend using Spring Security, OAuth2, and JWT.</p>
+                            <p class="text-muted small mt-2">**Tech:** Spring Security, Java, JWT, H2 Database</p>
+                            <div class="mt-3">
+                                <a href="#" target="_blank" class="btn btn-outline-info me-2"><i class="fab fa-github"></i> Code</a>
+                                <a href="#" target="_blank" class="btn btn-outline-info"><i class="fas fa-book"></i> API Docs</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="certifications" class="section" style="background-color: var(--bg-section-alt);">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 text-center"><h2 class="section-title">Certifications</h2></div>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 p-4 text-center">
+                        <i class="fas fa-certificate skill-icon mb-3"></i>
+                        <h5 class="fw-bold">Certified Kubernetes Administrator (CKA)</h5>
+                        <p class="text-muted mb-1">Cloud Native Computing Foundation (CNCF)</p>
+                        <p class="text-gradient fw-bold">Expected: 2025</p>
+                        <a href="#" target="_blank" class="small mt-2">Verify Credential <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 p-4 text-center">
+                        <i class="fas fa-certificate skill-icon mb-3"></i>
+                        <h5 class="fw-bold">Oracle Certified Professional, Java SE 17</h5>
+                        <p class="text-muted mb-1">Oracle</p>
+                        <p class="text-gradient fw-bold">Issued: 2024</p>
+                        <a href="#" target="_blank" class="small mt-2">Verify Credential <i class="fas fa-external-link-alt"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="resources" class="section">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 text-center"><h2 class="section-title">Developer Resources</h2><p class="lead text-muted mb-5">Useful links to my knowledge base, articles, and community contributions.</p></div>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-4 col-md-6">
+                    <a href="https://medium.com/@your-dev-blog" target="_blank" class="text-decoration-none resource-card d-block p-4 h-100">
+                        <div class="d-flex align-items-center"><i class="fab fa-medium resource-icon me-3"></i>
+                            <div><h5 class="mb-0 fw-bold" style="color: var(--text-color);">Technical Blog Posts</h5><p class="text-muted small mb-0">Deep dives into Spring Boot, Kafka, and Microservices patterns.</p></div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <a href="https://github.com/your-username/interview-prep" target="_blank" class="text-decoration-none resource-card d-block p-4 h-100">
+                        <div class="d-flex align-items-center"><i class="fab fa-github resource-icon me-3"></i>
+                            <div><h5 class="mb-0 fw-bold" style="color: var(--text-color);">My Open Source Work</h5><p class="text-muted small mb-0">View all contributions and public repositories.</p></div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <a href="https://www.hackerrank.com/your-username" target="_blank" class="text-decoration-none resource-card d-block p-4 h-100">
+                        <div class="d-flex align-items-center"><i class="fas fa-code resource-icon me-3"></i>
+                            <div><h5 class="mb-0 fw-bold" style="color: var(--text-color);">Coding Challenge Profile</h5><p class="text-muted small mb-0">Demonstrating problem-solving skills and algorithmic knowledge.</p></div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section id="testimonials" class="section" style="background-color: var(--bg-section-alt);">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 text-center"><h2 class="section-title">What People Say</h2></div>
+            </div>
+            <div class="row g-4 justify-content-center">
+                <div class="col-lg-6">
+                    <div class="card testimonial-card p-4 h-100">
+                        <p class="fst-italic">"Parvej's work on our Spring Boot services was outstanding. He delivered scalable, clean code ahead of schedule, proving his mastery of the Java ecosystem. A true professional who elevates the entire team."</p>
+                        <hr>
+                        <div class="d-flex align-items-center">
+                            <div><h6 class="testimonial-author mb-0">Ahmed Khan</h6><p class="testimonial-title mb-0">CTO, Tech Solutions Inc.</p></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card testimonial-card p-4 h-100">
+                        <p class="fst-italic">"His dedication to the frontend (React) while ensuring seamless backend integration was impressive. Parvej is highly collaborative, takes ownership of complex features, and is an indispensable team member."</p>
+                        <hr>
+                        <div class="d-flex align-items-center">
+                            <div><h6 class="testimonial-author mb-0">Naima Islam</h6><p class="testimonial-title mb-0">Senior Software Engineer, Innovate BD</p></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section">
+        <div class="container text-center">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <h2 class="section-title">Let's Connect</h2>
+                    <p class="lead text-muted">I'm currently seeking challenging **Full Stack Java Developer** roles. If you have an exciting project or opportunity, please reach out!</p>
+                    <div class="mt-5">
+                        <a href="mailto:your-email@example.com" target="_blank" class="d-inline-block mx-4"><i class="fas fa-envelope social-icon"></i></a>
+                        <a href="https://linkedin.com/in/md-parvej-hossen" target="_blank" class="d-inline-block mx-4"><i class="fab fa-linkedin social-icon"></i></a>
+                        <a href="https://github.com/your-username" target="_blank" class="d-inline-block mx-4"><i class="fab fa-github social-icon"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="text-center text-muted">
+        <div class="container">
+            <p>&copy; 2025 Md Parvej Hossen. Designed and Developed with <i class="fas fa-heart" style="color: var(--primary-color);"></i>. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const body = document.body;
+            const themeIcons = document.querySelectorAll('.theme-icon');
+            const menuIcons = document.querySelectorAll('.theme-icon-menu');
+            const menuToggleItem = document.querySelector('.toggle-menu-item');
+            
+            // 1. Initialize Theme
+            const savedMode = localStorage.getItem('theme') || 'light';
+            if (savedMode === 'dark') {
+                enableDarkMode();
+            } else {
+                enableLightMode();
+            }
+
+            function updateIcons(iconClass) {
+                themeIcons.forEach(icon => { icon.className = `${iconClass} mode-toggle theme-icon`; });
+                menuIcons.forEach(icon => { icon.className = `${iconClass} me-2 theme-icon-menu`; });
+            }
+
+            function enableDarkMode() {
+                body.classList.add('dark-mode');
+                localStorage.setItem('theme', 'dark');
+                updateIcons('fas fa-sun');
+            }
+
+            function enableLightMode() {
+                body.classList.remove('dark-mode');
+                localStorage.setItem('theme', 'light');
+                updateIcons('fas fa-moon');
+            }
+
+            // 2. Core Toggle Logic
+            function toggleTheme() {
+                if (body.classList.contains('dark-mode')) {
+                    enableLightMode();
+                } else {
+                    enableDarkMode();
+                }
+            }
+            
+            // 3. Event Listeners
+            themeIcons.forEach(icon => { icon.addEventListener('click', toggleTheme); });
+            if (menuToggleItem) {
+                menuToggleItem.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    toggleTheme();
+                });
+            }
+        });
+    </script>
+</body>
+</html>
